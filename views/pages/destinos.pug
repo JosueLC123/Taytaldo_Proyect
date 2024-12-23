@@ -1,0 +1,96 @@
+extends ../layout/index
+
+block contenido 
+    //- pre= JSON.stringify(data, undefined, 2)
+
+    section(class="hero_destinos")
+        div(class="hero_destinos_heading")
+            h1 Destinos
+            p Encuentra la mejor aventura para tí
+
+        search 
+            form(action="", method="post" class="filter") 
+                div(class="filter_item")
+                    p 
+                        i(class="icon-lugar")
+                        | Lugares
+
+                    select#filtroLugar(class="filter_item__select" name="filtroLugar") 
+                        option(value="" disabled selected) ¿A donde quieres ir?
+                        each lugar in lugares
+                            option(value=lugar.id)= lugar.descripcion
+
+                div(class="filter_item")
+                    p 
+                        i(class="icon-actividad")
+                        | Actividad
+
+                    select#filtroActividad(class="filter_item__select" name="filtroActividad") 
+                        option(value="" disabled selected) Todas las actividades
+                        each servicio in servicios
+                            option(value=servicio.id)= servicio.descripcion
+
+                div(class="filter_item")
+                    p 
+                        i(class="icon-duracion")
+                        | Duración
+
+                    select#filtroDuracion(class="filter_item__select" name="filtroDuracion") 
+                        option(value="" disabled selected) Todas las opciones
+                        each item in duracion
+                            option(value=item.id)= item.descripcion
+
+                button(id="btnBuscar" class="btn_primary" type="button") Buscar
+
+    section
+        div(class="destinos_tour container")
+            if destinos.length
+                div(class="destinos_heading")
+                    p(class="destinos_heading__text") 
+                        span #{offset + 1} a 
+                        span #{total < limit + offset ? total : limit + offset} de 
+                        span #{total} resultados
+
+                    div(class="destinos_clear")
+                        button
+                            i(class="icon-clear")
+                        p(class="destinos_clear__text") Limpiar filtro
+
+            
+                div(class="destinos_cards")
+                    each destino in destinos
+                        article(class="destinos_card__item")
+                            div(class="destinos_card__image")
+                                p(class="destinos_card__image__ubicacion")= destino.region
+                                img(src=`uploads/${destino.imagen}` alt=`${destino.nombre}`)
+
+                            div(class="card_item__info")
+                                div(class="card_item__info__servicio")
+                                    each servicio in destino.servicios
+                                        p(class="label_info card_item__info_heading")
+                                            i(class="icon-clock")
+                                            |  #{servicio}
+                                h3= destino.nombre
+                                p(class="card_item__info_text")
+                                    | #{destino.descripcion_corta}
+
+                            div(class="card_item_precio")
+                                h3 S/. #{destino.precio}.00
+                                a(href=`/destinos/${destino.slug}` class="btn_primary btn_item__precio" id="btnDetalles") Detalles
+
+
+                nav(class="pagination" role="navigation" aria-label="pagination")
+                    a(href=`/destinos?pagina=${pagina - 1}` class=`${pagina === 1 ? 'is-disabled' : 'is-enable'} pagination-prev`) Anterior
+                    a(href=`/destinos?pagina=${pagina + 1}` class=`${pagina === paginacion ? 'is-disabled' : 'is-enable'} pagination-next`) Siguiente
+            else 
+                div(class="destinos_heading")
+                    p(class="destinos_heading__text") No hay Destinos
+
+    section 
+        div(class="pre_footer")
+            div(class="pre_footer__heading")
+                h1 Vive la Magia de Cada Lugar
+                p Explora destinos llenos de historia, belleza y aventura. Cada lugar es una nueva oportunidad para descubrir algo extraordinario.
+    
+block scripts 
+    script(src="/js/inicio.js")

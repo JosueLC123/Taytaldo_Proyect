@@ -1,0 +1,40 @@
+{
+  "name": "taytaldo-website",
+  "version": "1.0.0",
+  "description": "Pagina Web de Taytaldo",
+  "main": "app.js",
+  "type": "module",
+  "scripts": {
+    "start": "node --watch app.js",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "webpack --watch"
+  },
+  "keywords": [
+    "taytaldo",
+    "website"
+  ],
+  "author": "Matias Fong @fongmatias",
+  "license": "ISC",
+  "devDependencies": {
+    "css-loader": "^7.1.2",
+    "standard": "17.1.2",
+    "style-loader": "^4.0.0",
+    "webpack": "5.96.1",
+    "webpack-cli": "5.1.4"
+  },
+  "eslintConfig": {
+    "extends": "standard"
+  },
+  "dependencies": {
+    "bcrypt": "5.1.1",
+    "cookie-parser": "1.4.7",
+    "csurf": "1.11.0",
+    "dotenv": "16.4.5",
+    "express": "4.21.0",
+    "mysql2": "3.11.3",
+    "pug": "3.0.3",
+    "swiper": "11.1.15",
+    "toastr": "2.1.4",
+    "zod": "3.24.1"
+  }
+}

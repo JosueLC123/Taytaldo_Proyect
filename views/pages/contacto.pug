@@ -1,0 +1,62 @@
+extends ../layout/index
+
+block contenido 
+
+    section(class="hero_contacto")
+        div(class="hero_contacto__heading")
+            h1 Contacto
+            p Ponte en contacto con nosotros
+
+    section
+        div(class="contact_info container")
+            article(class="contact_header")
+                p(class="label_heading") Contáctanos
+                h2 ¡Listo para obtener nuestros mejores servicios! No dudes en contactar con nosotros
+
+            div(class="contact_cards")
+                article(class="contact_card__item")
+                    img(src="/img/contacto/icon_phone_2.svg" alt="Teléfono")
+                    h4 Teléfono
+                    p 963 073 599
+
+                article(class="contact_card__item")
+                    img(src="/img/contacto/icon_correo.svg" alt="Correo")
+                    h4 Correo
+                    p taytaldo@gmail.com
+
+                article(class="contact_card__item")
+                    img(src="/img/contacto/icon_location.svg" alt="Ubicación")
+                    h4 Ubicación
+                    p Santiago de Surco, Perú, 01
+
+    section
+        div(class="formulario container")
+            article(class="formulario_info")
+                p(class="label_heading") Contácta con nosotros
+                h1 ¿Tienes preguntas? No dudes en escribirnos
+                p(class="formulario_heading__text") Tu satisfacción es nuestra prioridad, usa el formulario de contacto para hacernos llegar tus consultas ¡Estamos a un clic de distancia!
+                div(class="formulario_info__media")
+                    a
+                        i(class="icon-facebook-dark")
+                    a
+                        i(class="icon-tiktok-dark")
+                    a
+                        i(class="icon-instagram-dark")
+                    a
+                        i(class="icon-whatsapp-dark")
+
+            form(id="frmContacto")
+                div(class="form_informacion")
+                    input(class="form_field" type="text" name="nombreCompleto" id="nombre" placeholder="Tu nombre completo")
+                    input(class="form_field" type="number" name="dni" id="dni" placeholder="Tu DNI")
+                
+                div(class="form_informacion")
+                    input(class="form_field" type="email" name="correo" id="correo" placeholder="Correo")
+                    input(class="form_field" type="tel" name="telefono" id="telefono" placeholder="Número de teléfono")
+                
+                textarea(class="form_textarea" name="mensaje" id="mensaje" placeholder="Escribe un mensaje")
+                
+                button(id="btnEnviar" type="submit" class="btn_primary form_button") Enviar mensaje
+block scripts 
+    script(src="/js/inicio.js")
+    script(src='/js/contacto.js') 

@@ -1,0 +1,32 @@
+import { DestinosModel } from '../models/Destinos.js'
+import { LugaresModel } from '../models/Lugares.js'
+import { ServicioModel } from '../models/Servicio.js'
+import { DuracionModel } from '../models/Duracion.js'
+import { formatItinerario } from '../helpers/itinerarioFormatter.js'
+import { formatDestino } from '../helpers/destinoFormatter.js'
+
+export class DestinosService {
+  static async getAll ({ input }) {
+    const [destinos, total, lugares, servicios, duracion] = await Promise.all([
+      DestinosModel.getDestinosData({ input }),
+      DestinosModel.total(),
+      LugaresModel.getAll(),
+      ServicioModel.getAll(),
+      DuracionModel.getAll()
+    ])
+    const datosTransformados = formatDestino(destinos[0])
+
+    return { destinos: datosTransformados, total, lugares, servicios, duracion }
+  }
+
+  static async getIdBySlug ({ slug }) {
+    const id = await DestinosModel.getIdBySlug({ slug })
+    return id
+  }
+
+  static async getById (id) {
+    const itinerario = await DestinosModel.getById(id)
+    const datosTransformados = formatItinerario(itinerario)
+    return { itinerario: datosTransformados }
+  }
+}

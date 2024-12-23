@@ -1,0 +1,206 @@
+extends ../layout/index
+
+block contenido 
+    //- pre= JSON.stringify(itinerario, undefined, 2)
+
+    section
+        div(class="itinerario")
+            div(class="itinerario_slider swiper")
+                div(class="itinerario_slider__container")
+                    div(class="itinerario_slider__wrapper swiper-wrapper")
+                        - for (let i = 0; i < 4; i++)
+                            each item in itinerario.imagenes
+                                figure(class="itinerario_slide swiper-slide")
+                                    div(class="slide_image")
+                                        img(src=`/uploads/${item}` alt=`${itinerario.nombre}`)
+
+                div(class="swiper-button-next swiper-button-next-itinerario swiper-navBtn")
+                div(class="swiper-button-prev swiper-button-prev-itinerario swiper-navBtn")
+                div(class="swiper-pagination swiper-pagination-itinerario")
+
+    section 
+        div(class="itinerario_content container")
+            div(class="itinerario_content__layout")
+                main(class="itinerario_informacion")
+                    h1(class="itinerario_titulo")= itinerario.nombre
+                    div(class="str_hr")
+
+                    section(class="itinerario_datos")
+                        article(class="itinerario_datos__descripcion")
+                            h3 Descripción 
+                            p(class="datos_descripcion__text")= itinerario.descripcion_larga 
+                        div(class="str_hr")
+
+                        if itinerario.incluye && itinerario.incluye[0] !== ''
+                            article(class="itinerario_incluye")
+                                h3 Incluye
+                                ul 
+                                    each item in itinerario.incluye 
+                                        li(class="itinerario__list")
+                                            i(class="e-bg-check")
+                                            font= item
+                            div(class="str_hr")
+
+                        if itinerario.no_incluye && itinerario.no_incluye[0] !== ''
+                            article(class="itinerario_excluye")
+                                h3 No Incluye
+                                ul 
+                                    each item in itinerario.no_incluye
+                                        li(class="itinerario__list")
+                                            i(class="e-bg-x")
+                                            font= item
+                            div(class="str_hr")
+
+                        if itinerario.informacion_adicional && itinerario.informacion_adicional[0] !== ''
+                            article(class="itinerario_adicional")
+                                h3 Información Adicional
+                                ul 
+                                    each item in itinerario.informacion_adicional
+                                        li(class="itinerario__list")
+                                            i(class="e-bg-adicional")
+                                            font= item
+                            div(class="str_hr")
+
+                    
+                    section(class="itinerario_tour")
+                        h3 Itinerario
+
+                        each item in itinerario.plan
+                            article(class="itinerario_tour__content")
+                                details(class="dia_detalle")
+                                    summary(class="dia_summary")
+                                        div(class="dia_summary__heading")
+                                            h5 Día #{item.dia[0].numero}
+                                            p= item.dia[0].lugar
+                                        i(class="icon-open")
+
+                                    section(class="dia_contenido")
+                                        ul(class="dia_contenido__detalle")
+                                            each plan in item.actividad
+                                                li 
+                                                    if plan.hora !== null
+                                                        time(datetime="")= plan.hora
+                                                    | #{plan.descripcion}
+                    div(class="str_hr_remove")
+
+            aside(class="itinerario_content__reserva")
+                section(class="reserva_precio")
+                    div(class="reserva_precio__heading")
+                        h5 Desde:
+                        p S/. #{itinerario.precio_desde}.00
+
+                    div(class="bus")
+                        span(class="line")
+                        i(class="icon-bus")
+
+                nav(class="tabs_formulario")
+                    div(class="item tab-activo" data-id="#reserva-form") Reserva
+                    div(class="item" data-id="#consulta-form") Consulta
+
+                div(class="formulario_reserva" id="reserva-form")
+                    form(id="frmReserva")  
+                        input(type="hidden", name="id" value=`${itinerario.id_destino}`)
+                        input(type="hidden", name="slug" value=`${itinerario.slug}`)
+                        div(class="reserva_precios")
+                            each item in itinerario.precios
+                                p= item.tipo 
+                                    span(class="precio" data-tipo=item.tipo data-valor=item.valor) S/. #{item.valor}
+
+                        div(class="formulario_reserva__content")
+                            div(class="fecha")
+                                label(for="fecha") Fecha de viaje:
+                                input(class="form_field" type="date" name="fechaReserva" id="fecha")
+
+                            div(class="nombre")
+                                label(for="nombre") Nombre Completo:
+                                input(class="form_field" type="text" name="nombreCompleto" id="nombre_reserva" placeholder="Tu nombre")
+                            
+                            div(class="dni")
+                                label(for="dni") DNI:
+                                input(class="form_field" type="number" name="dni" id="dni_reserva" placeholder="Tu DNI")
+
+                            div(class="telefono")
+                                label(for="telefono") Télefono:
+                                input(class="form_field" type="tel" name="telefono" id="telefono_reserva" placeholder="Tu teléfono")
+                            
+                            div(class="correo")
+                                label(for="correo") Correo:
+                                input(class="form_field" type="email" name="correo" id="email_reserva" placeholder="Tu correo")
+
+                            div(class="adultos")
+                                p Adultos:
+                                div(class="botones")
+                                    button(type="button" class="contador" id="disminuir_adultos")
+                                        span 
+                                            i(class="icon-disminuir")
+                                    
+                                    input(type="text" id="valor_adultos" name="adultos" value="0" data-tipo="adultos")
+
+                                    button(type="button" class="contador" id="aumentar_adultos")
+                                        span 
+                                            i(class="icon-aumentar")
+
+                            div(class="infantes")
+                                p Niños:
+                                div(class="botones")
+                                    button(type="button" class="contador" id="disminuir_infantes")
+                                        span 
+                                            i(class="icon-disminuir")
+                                    
+                                    input(type="text" id="valor_infantes" name="infantes" value="0" data-tipo="infantes")
+
+                                    button(type="button" class="contador" id="aumentar_infantes")
+                                        span 
+                                            i(class="icon-aumentar")
+
+                            - const hasMascotas = itinerario.precios.some(precio => precio.tipo === 'Mascota');
+                            if hasMascotas
+                                div(class="mascotas")
+                                    p Mascotas: 
+                                    div(class="botones")
+                                        button(type="button" class="contador" id="disminuir_mascotas")
+                                            span 
+                                                i(class="icon-disminuir")
+                                        
+                                        input(type="text" id="valor_mascotas" name="mascotas" value="0" data-tipo="mascotas")
+
+                                        button(type="button" class="contador" id="aumentar_mascotas")
+                                            span 
+                                                i(class="icon-aumentar")
+
+                        div(class="total_pago")
+                                p Total 
+                                    span(id="total" value="0") 
+                                    input(type="hidden" id="precio_total" name="precioTotal")
+
+                        button(type="submit" class="btn_primary btn_reserva" id="btnReserva") Reservar
+
+                div(class="formulario_consulta" id="consulta-form" style="display: none;")
+                    form(id="frmConsulta") 
+                        input(type="hidden", name="id" value=`${itinerario.id_destino}`)
+                        div(class="formulario_consulta__content")
+                            div(class="nombre")
+                                label(for="nombre") Nombre Completo:
+                                input(class="form_field" type="text" name="nombreCompleto" id="nombre_consulta" placeholder="Tu nombre")
+                            
+                            div(class="dni")
+                                label(for="dni") DNI:
+                                input(class="form_field" type="number" name="dni" id="dni_consulta" placeholder="Tu DNI")
+                            
+                            div(class="telefono")
+                                label(for="telefono") Télefono:
+                                input(class="form_field" type="tel" name="telefono" id="telefono_consulta" placeholder="Tu teléfono")
+                           
+                            div(class="correo")
+                                label(for="correo") Correo:
+                                input(class="form_field" type="email" name="correo" id="email_consulta" placeholder="Tu correo")
+                           
+                            div(class="mensaje")
+                                label(for="email") Mensaje:
+                                textarea(class="form_textarea" name="mensaje" id="mensaje_consulta" placeholder="Escribe un mensaje")
+                        button(type="submit" class="btn_primary btn_consulta" id="btnConsulta") Consultar
+
+
+block scripts 
+    script(src='/js/inicio.js')
+    script(src='/js/itinerario.js')

@@ -1,0 +1,78 @@
+extends ../layout/index
+
+block contenido 
+
+    section(class="hero_nosotros")
+        div(class="hero_nosotros__heading")
+            h1 Nosotros
+            p ¡Explora lo que hacemos!
+
+    section 
+        div(class="historia container")
+            figure(class="historia_imagen")
+                img(src="/img/nosotros/misty-mountain.webp" alt="Historia")
+
+            article(class="historia_content")
+                h1 Tu Aventura, Nuestra Pasión: Creando Experiencias Únicas para Ti
+                p Con más de 3 años creando experiencias únicas y personalizadas, diseñamos cada viaje pensando en ti. Desde aventuras privadas hasta tours exclusivos, nos encargamos de cada detalle para asegurarnos de que vivas momentos inolvidables, llenos de magia, historia y emoción. Nuestro compromiso es ofrecer un servicio excepcional que supere todas tus expectativas.
+
+    section 
+        div(class="objetivos container")
+            article(class="objetivos_header")
+                p(class="label_heading") ¿Quiénes Somos?
+                h1 Nuestra Pasión, Tu Aventura
+                p(class="objetivos_header__text") Más que una agencia, somos apasionados por explorar y compartir. Descubre quiénes somos y cómo transformamos tus sueños en aventuras.
+
+            div(class="vision_mision")
+                article(class="vision")
+                    div(class="vision_header")
+                        i(class="icon-vision")
+                        h2 Nuestra Visión
+                    p Convertirnos en la agencia de referencia en turismo nocturno y de larga duración, ofreciendo experiencias memorables y personalizadas para cada cliente.
+
+                article(class="mision")
+                    div(class="mision_header")
+                        i(class="icon-mision")
+                        h2 Nuestra Misión
+                    p Crear historias inolvidables con nuestros tours nocturnos, full days y paquetes de 2 días o más, ofreciendo aventuras únicas y personalizadas que despierten tu espíritu explorador.
+
+    section
+        div(class="cards container")
+            article(class="cards_items")
+                img(class="", src="/img/nosotros/icon_airplane.svg", alt="Nuestra Esencia")
+                h4(class="") Nuestra Esencia
+                p(class="") Más que planificadores, somos creadores de recuerdos que duran para siempre.
+
+            article(class="cards_items")
+                img(class="", src="/img/nosotros/icon_map_4.svg", alt="Tu Mapa al Mundo")
+                h4(class="") Tu Mapa al Mundo
+                p(class="") Cada viaje comienza con una visión, y estamos aquí para ayudarte a trazar el mejor camino.
+
+            article(class="cards_items")
+                img(class="", src="/img/nosotros/icon_map_1.svg", alt="Lo que nos mueve")
+                h4(class="") Lo que nos mueve
+                p(class="") Detrás de cada aventura, estamos nosotros, haciendo realidad tus sueños de viaje.
+
+            article(class="cards_items")
+                img(class="", src="/img/nosotros/icon_maleta.svg", alt="El Espíritu que Nos Impulsa")
+                h4(class="") El Espíritu que Nos Impulsa
+                p(class="") Nuestra pasión es ofrecerte experiencias que vayan más allá de un simple viaje.
+
+    section
+        div(class="faqs container")
+            h2 Preguntas Frecuentes
+
+            each faq in faqs
+                details(class="faqs_details")
+                    summary
+                        div(class="faqs_details__content")
+                            span= faq.number
+                            p= faq.question
+                        div(class="arrow-icon")
+                            i(class="icon-arrow-down")
+                    div(class="faqs_details__wrapper")
+                        div(class="faqs_details__spacer")
+                        p(class="faqs_details__text")= faq.answer
+
+block scripts 
+    script(src='/js/inicio.js')

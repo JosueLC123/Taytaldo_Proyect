@@ -1,0 +1,165 @@
+extends ../layout/index
+
+block contenido 
+
+    section(class="hero")
+        div(class="hero_heading")
+            h1 Conquista Nuevos Destinos
+            p Embárcate en una travesía única y vive la naturaleza como nunca antes. Haz de cada recorrido una nueva historia.
+
+        search 
+            form(action="", method="post" class="filter") 
+                div(class="filter_item")
+                    p 
+                        i(class="icon-lugar")
+                        | Lugares
+
+                    select#filtroLugar(class="filter_item__select" name="filtroLugar") 
+                        option(value="" disabled selected) ¿A donde quieres ir?
+                        each lugar in lugares 
+                            option(value=lugar.id)= lugar.descripcion
+
+                div(class="filter_item")
+                    p 
+                        i(class="icon-actividad")
+                        | Actividad
+
+                    select#filtroActividad(class="filter_item__select" name="filtroActividad") 
+                        option(value="" disabled selected) Todas las actividades
+                        each servicio in servicios 
+                            option(value=servicio.id)= servicio.descripcion
+
+                div(class="filter_item")
+                    p 
+                        i(class="icon-duracion")
+                        | Duración
+
+                    select#filtroDuracion(class="filter_item__select" name="filtroDuracion") 
+                        option(value="" disabled selected) Todas las opciones
+                        each item in duracion 
+                            option(value=item.id)= item.descripcion
+
+                button(id="btnBuscar" class="btn_primary" type="button") Buscar
+
+    section
+        div(class="cards container")
+            article(class="cards_items")
+                img(src="/img/inicio/icon_map_3.svg" alt="Experiencias Únicas")
+                h4 Experiencias Únicas
+                p Descubre tours diseñados para ofrecerte momentos inolvidables en cada destino.
+
+            article(class="cards_items")
+                img(src="/img/inicio/icon_wallet.svg" alt="Precios Competitivos")
+                h4 Precios Competitivos
+                p Disfruta de nuestros tours a precios accesibles sin sacrificar la calidad del servicio.
+
+            article(class="cards_items")
+                img(src="/img/inicio/icon_chrono.svg" alt="Reserva Fácil y Rápido")
+                h4 Reserva Fácil y Rápido
+                p Con solo unos clics, asegura tu lugar en nuestras aventuras. ¡Sin complicaciones!
+
+            article(class="cards_items")
+                img(src="/img/inicio/icon_defense.svg" alt="Tours Seguros")
+                h4 Tours Seguros
+                p Tu seguridad es nuestra prioridad. Disfruta de nuestros tours con la tranquilidad que mereces.
+
+    section
+        div(class="destinos container")
+            h2 Descubre los destinos favoritos de todos
+
+            div(class="slider swiper")
+                div(class="slide_container")
+                    div(class="card_wrapper swiper-wrapper")
+
+                        each destino in destinos
+                            if destino.estado === 'activo'
+                                a(class="card swiper-slide" href=`/destinos/${destino.slug}`)
+                                    div(class="image_box")
+                                        img(src=`uploads/${destino.imagen}` alt=`${destino.nombre}`)
+                                        h3(class="image_text")= destino.nombre
+
+                div(class="swiper-button-next swiper-button-next-destinos swiper-navBtn")
+                div(class="swiper-button-prev swiper-button-prev-destinos swiper-navBtn")
+                div(class="swiper-pagination swiper-pagination-destinos")
+
+            div(class="destinos_button")
+                a(class="btn_secondary" href='/destinos') Ver Todos los Destinos
+
+    section
+        div(class="proximo container")
+            h2 Próximamente
+
+            div(class="proximo_slider swiper")
+                div(class="proximo_slider__container")
+                    div(class="proximo_slider__wrapper swiper-wrapper")
+                        
+                        each destino in destinos 
+                            if destino.estado === 'proximo'
+                                button(class="proximo_slide swiper-slide")
+                                    div(class="slide_image")
+                                        img(src=`uploads/${destino.imagen}` alt=`${destino.nombre}`)
+                                        h3(class="slide_text")= destino.nombre
+
+                div(class="swiper-button-next swiper-button-next-proximo swiper-navBtn")
+                div(class="swiper-button-prev swiper-button-prev-proximo swiper-navBtn")
+                div(class="swiper-pagination swiper-pagination-proximo")
+ 
+    section
+        div(class="planes container")
+            article(class="planes_content__item carousel")
+                div(class="planes_slider swiper")
+                    div(class="planes_slider__container")
+                        div(class="planes_slider__wrapper swiper-wrapper")
+                            button(class="planes_slide swiper-slide")
+                                div(class="slide_image")
+                                    img(src="/img/inicio/tour_nocturno.webp" alt="Tours Nocturnos")
+                                    h3(class="slide_text") Tours Nocturnos
+
+                            button(class="planes_slide swiper-slide")
+                                div(class="slide_image")
+                                    img(src="/img/inicio/fullday.webp" alt="Full Days")
+                                    h3(class="slide_text") Full Days
+
+                            button(class="planes_slide swiper-slide")
+                                div(class="slide_image")
+                                    img(src="/img/inicio/2dias1noche.webp" alt="2 Días 1 Noche")
+                                    h3(class="slide_text") 2 Días 1 Noche
+
+                            button(class="planes_slide swiper-slide")
+                                div(class="slide_image")
+                                    img(src="/img/inicio/petfriendly.webp" alt="Pet Friendly")
+                                    h3(class="slide_text") Pet Friendly
+
+                    div(class="swiper-button-next swiper-button-next-planes swiper-navBtn")
+                    div(class="swiper-button-prev swiper-button-prev-planes swiper-navBtn")
+
+            article(class="planes_content__item informacion")
+                div(class="planes_info")
+                    h2 Planes perfectos para ti
+                    p Elige tu próxima aventura, desde un día lleno de emociones hasta escapadas nocturnas o de varios días. ¡Explora nuestras opciones y vive experiencias inolvidables!
+                    a(class="btn_primary btn__planes_info" href="/destinos") Ver Más
+
+    section
+        div(class="testimonial container")
+            h2 Lo que dicen de nosotros
+            
+            div(class="testimonial_slider swiper")
+                div(class="testimonial_slider__container")
+                    div(class="testimonial_slider__wrapper swiper-wrapper")
+                        each testimonial in testimonials
+                            article(class="testimonial_slide swiper-slide")
+                                div(class="slide_card")
+                                    p= testimonial.text
+                                    div(class="card_footer")
+                                        h5= testimonial.name
+                                        div(class="card_footer__stars")
+                                            each i in Array(testimonial.stars)
+                                                p
+                                                    i(class="icon-star")
+            
+                div(class="swiper-button-next swiper-button-next-testimonial swiper-navBtn")
+                div(class="swiper-button-prev swiper-button-prev-testimonial swiper-navBtn")
+                div(class="swiper-pagination swiper-pagination-testimonial")
+
+block scripts 
+    script(src='/js/inicio.js')
