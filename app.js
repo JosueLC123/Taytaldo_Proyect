@@ -15,6 +15,7 @@ app.set('views', './views')
 
 // Carpeta Publica
 app.use(express.static('public'))
+app.use('/uploads', express.static('uploads'))
 
 app.use('/', appRouter)
 
@@ -22,4 +23,7 @@ const PORT = process.env.PORT ?? 3000
 
 app.listen(PORT, () => {
   console.log(`La aplicacion es corriendo en http://localhost:${PORT}`)
+
 })
+
+

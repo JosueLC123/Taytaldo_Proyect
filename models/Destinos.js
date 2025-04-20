@@ -34,11 +34,16 @@ export class DestinosModel {
     )
     return id[0]?.id_destino
   }
+  static async getById(id) {
+    const [resultSets] = await connection.query('CALL GetItinerarioById(?);', [id])
+    return resultSets[0] // ← Esto es el arreglo de objetos del itinerario
+  }
+  
 
-  static async getById (id) {
+  /*static async getById (id) {
     const [itinerario] = await connection.query(
       'CALL GetItinerarioById(?);', [id]
     )
     return itinerario[0]
-  }
+  }*/
 }

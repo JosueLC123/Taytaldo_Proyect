@@ -1,15 +1,53 @@
-export function formatItinerario (results) {
+function safeSplit(value) {
+  return typeof value === 'string' && value.length > 0
+    ? value.split(',').map(item => item.trim())
+    : []
+}
+
+function formatPrecios(preciosString) {
+  if (typeof preciosString !== 'string' || preciosString.length === 0) {
+    return []
+  }
+
+  return preciosString.split(',').map(item => {
+    const [tipoCliente, valor] = item.split(':').map(part => part.trim())
+    return {
+      tipo: tipoCliente ?? 'General',
+      valor: parseFloat(valor) || 0
+    }
+  })
+}
+
+function formatDia(diaString) {
+  if (typeof diaString !== 'string' || diaString.trim() === '') {
+    return [1, 'Lugar no definido']
+  }
+
+  const match = diaString.match(/Día (\d+):\s*(.+)/)
+  if (match) {
+    return [parseInt(match[1], 10), match[2]]
+  }
+
+  return [1, diaString]
+}
+
+
+export function formatItinerario(results) {
+  if (!results || results.length === 0) {
+    throw new Error("No se recibieron resultados para formatear el itinerario")
+  }
+
   const data = {
     id_destino: results[0].id_destino,
     nombre: results[0].nombre,
     slug: results[0].slug,
     descripcion_larga: results[0].descripcion_larga,
-    imagenes: results[0].imagenes.split(', ').map(item => item.trim()),
+    imagenes: safeSplit(results[0].imagenes),
     precio_desde: results[0].precio_desde,
     precios: formatPrecios(results[0].precios),
-    incluye: results[0].incluye.split(', ').map(item => item.trim()),
-    no_incluye: results[0].no_incluye.split(', ').map(item => item.trim()),
-    informacion_adicional: results[0].informacion_adicional.split(', ').map(item => item.trim()),
+    incluye: safeSplit(results[0].incluye),
+    no_incluye: safeSplit(results[0].no_incluye),
+    informacion_adicional: safeSplit(results[0].informacion_adicional),
     plan: []
   }
 
@@ -35,23 +73,4 @@ export function formatItinerario (results) {
   })
 
   return data
-}
-
-function formatPrecios (preciosString) {
-  return preciosString.split(', ').map(item => {
-    const [tipoCliente, valor] = item.split(': ').map(part => part.trim())
-    return {
-      tipo: tipoCliente,
-      valor: parseFloat(valor)
-    }
-  })
-}
-
-function formatDia (diaString) {
-  const match = diaString.match(/Día (\d+):\s*(.+)/)
-  if (match) {
-    return [parseInt(match[1], 10), match[2]]
-  }
-
-  return [1, diaString]
 }

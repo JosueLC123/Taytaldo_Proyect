@@ -26,6 +26,9 @@ export class DestinosService {
 
   static async getById (id) {
     const itinerario = await DestinosModel.getById(id)
+    if (!itinerario || itinerario.length === 0) {
+      throw new Error(`No se encontró ningún itinerario para el destino con ID: ${id}`)
+    }
     const datosTransformados = formatItinerario(itinerario)
     return { itinerario: datosTransformados }
   }

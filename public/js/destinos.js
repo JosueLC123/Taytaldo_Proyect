@@ -64,11 +64,13 @@ function mostrarDestinos () {
         <p class="label_info card_item__info_heading"><i class="icon-clock"></i>${servicio}</p>
       `).join('')
 
+    const imagen = destino.imagen ? destino.imagen : '/img/default.jpg' // imagen por defecto
+    const precio = destino.precio ? destino.precio.toFixed(2) : '0.00'   // fallback a 0.00 si no hay precio
     const destinoHTML = `
             <article class="destinos_card__item">
                 <div class="destinos_card__image">
                     <p class="destinos_card__image__ubicacion">${destino.ubicacion}</p>
-                    <img src="${destino.imagen}" alt="${destino.nombre}">
+                    <img src="${destino.imagen ? destino.imagen : '/img/default.jpg'}" alt="${destino.nombre}">
                 </div>
                 <div class="card_item__info">
                     <div class="card_item__info__servicio">
@@ -78,7 +80,7 @@ function mostrarDestinos () {
                     <p class="card_item__info_text">${destino.descripcion}</p>
                 </div>
                 <div class="card_item_precio">
-                    <h3>S/. ${destino.precio.toFixed(2)}</h3>
+                    <h3>S/. ${typeof destino.precio === 'number' ? destino.precio.toFixed(2) : '0.00'}</h3>
                     <a class="btn_primary btn_item__precio" href="/itinerario">Detalles</a>
                 </div>
             </article>
