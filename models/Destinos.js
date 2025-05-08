@@ -13,13 +13,30 @@ export class DestinosModel {
     return destinos
   }
 
-  static async getDestinosData ({ input }) {
+ 
+
+
+  static async getDestinosData({ input }) {
     const { limit, offset } = input
-    const [destinos] = await connection.query(
+    const [resultSets] = await connection.query(
+      'CALL GetDestinoServiciosPrecio(?, ?);',
+      [limit, offset]
+    )
+    console.log('RESULTADO DEL PROCEDIMIENTO:', resultSets)
+    return resultSets[0]
+  }
+  
+  
+  /*static async getDestinosData ({ input }) {
+    const { limit, offset } = input
+    const [resultSets] = await connection.query(
+    //const [destinos] = await connection.query(
       'CALL GetDestinoServiciosPrecio(?,?);', [limit, offset]
     )
-    return destinos
-  }
+    console.log('RESULTADO DEL PROCEDIMIENTO:', resultSets)
+    return resultSets[0] // solo si el primer set es el que contiene destinos
+    //return destinos
+  }*/
 
   static async total () {
     const [total] = await connection.query(
@@ -40,10 +57,5 @@ export class DestinosModel {
   }
   
 
-  /*static async getById (id) {
-    const [itinerario] = await connection.query(
-      'CALL GetItinerarioById(?);', [id]
-    )
-    return itinerario[0]
-  }*/
+  
 }

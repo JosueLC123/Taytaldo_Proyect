@@ -14,7 +14,8 @@ export class DestinosService {
       ServicioModel.getAll(),
       DuracionModel.getAll()
     ])
-    const datosTransformados = formatDestino(destinos[0])
+    //const datosTransformados = formatDestino(destinos[0])
+    const datosTransformados = formatDestino(destinos) // <-- Aquí corregido
 
     return { destinos: datosTransformados, total, lugares, servicios, duracion }
   }

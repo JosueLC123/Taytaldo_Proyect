@@ -4,7 +4,34 @@ function safeSplit(value) {
     : []
 }
 
+function formatearPrecio(precio) {
+  if (precio === null || precio === undefined) {
+    return 'Consultar';
+  }
+  const formatter = new Intl.NumberFormat('es-PE', {
+    style: 'currency',
+    currency: 'PEN',
+    minimumFractionDigits: 2
+  });
+  return formatter.format(precio);
+}
+
 function formatPrecios(preciosString) {
+  if (typeof preciosString !== 'string' || preciosString.length === 0) {
+    return [];
+  }
+
+  return preciosString.split(',').map(precio => {
+    const [servicio, valor] = precio.split(':');
+    return {
+      servicio,
+      valor: formatearPrecio(Number(valor)) // Aquí formateas el valor como "S/. 30.00"
+    };
+  });
+}
+
+
+/*function formatPrecios(preciosString) {
   if (typeof preciosString !== 'string' || preciosString.length === 0) {
     return []
   }
@@ -16,7 +43,7 @@ function formatPrecios(preciosString) {
       valor: parseFloat(valor) || 0
     }
   })
-}
+}*/
 
 function formatDia(diaString) {
   if (typeof diaString !== 'string' || diaString.trim() === '') {
