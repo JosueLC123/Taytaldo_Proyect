@@ -16,8 +16,14 @@ export class DestinosController {
       const limit = 7
       const offset = (paginaNum - 1) * limit
       const data = await DestinosService.getAll({ input: { limit, offset } })
-      
-      console.log(data.destinos)
+      console.log(
+    data.destinos.map(d => ({
+      nombre: d.nombre,
+      imagen_final: d.imagen_final,
+      imagenes: d.imagenes
+    }))
+  );
+
 
       return res.render('pages/destinos', {
         lugares: data.lugares,

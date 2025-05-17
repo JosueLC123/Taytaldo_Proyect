@@ -26,17 +26,6 @@ export class DestinosModel {
     return resultSets[0]
   }
   
-  
-  /*static async getDestinosData ({ input }) {
-    const { limit, offset } = input
-    const [resultSets] = await connection.query(
-    //const [destinos] = await connection.query(
-      'CALL GetDestinoServiciosPrecio(?,?);', [limit, offset]
-    )
-    console.log('RESULTADO DEL PROCEDIMIENTO:', resultSets)
-    return resultSets[0] // solo si el primer set es el que contiene destinos
-    //return destinos
-  }*/
 
   static async total () {
     const [total] = await connection.query(
@@ -54,6 +43,28 @@ export class DestinosModel {
   static async getById(id) {
     const [resultSets] = await connection.query('CALL GetItinerarioById(?);', [id])
     return resultSets[0] // ← Esto es el arreglo de objetos del itinerario
+  }
+  static async getFiltrados({ lugar, actividad, duracion }) {
+    let query = 'SELECT * FROM vw_destino_imagen WHERE 1=1'
+    const params = []
+
+    if (lugar) {
+      query += ' AND lugar = ?'
+      params.push(lugar)
+    }
+
+    if (actividad) {
+      query += ' AND actividad = ?'
+      params.push(actividad)
+    }
+
+    if (duracion) {
+      query += ' AND duracion = ?'
+      params.push(duracion)
+    }
+
+    const [destinos] = await connection.query(query, params)
+    return destinos
   }
   
 

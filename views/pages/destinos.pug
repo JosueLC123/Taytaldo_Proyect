@@ -9,38 +9,41 @@ block contenido
             p Encuentra la mejor aventura para tí
 
         search 
-            form(action="", method="post" class="filter") 
+            form(action="/", method="get" class="filter") 
                 div(class="filter_item")
                     p 
                         i(class="icon-lugar")
                         | Lugares
 
-                    select#filtroLugar(class="filter_item__select" name="filtroLugar") 
+                    select#filtroLugar(class="filter_item__select" name="lugar") 
                         option(value="" disabled selected) ¿A donde quieres ir?
                         each lugar in lugares
-                            option(value=lugar.id)= lugar.descripcion
+                            option(value=lugar.id selected=(lugar.id == filtroLugar))= lugar.descripcion
+                            //option(value=lugar.id)= lugar.descripcion
 
                 div(class="filter_item")
                     p 
                         i(class="icon-actividad")
                         | Actividad
 
-                    select#filtroActividad(class="filter_item__select" name="filtroActividad") 
+                    select#filtroActividad(class="filter_item__select" name="actividad") 
                         option(value="" disabled selected) Todas las actividades
                         each servicio in servicios
-                            option(value=servicio.id)= servicio.descripcion
+                            option(value=servicio.id selected=(servicio.id == filtroActividad))= servicio.descripcion
+                            //option(value=servicio.id)= servicio.descripcion
 
                 div(class="filter_item")
                     p 
                         i(class="icon-duracion")
                         | Duración
 
-                    select#filtroDuracion(class="filter_item__select" name="filtroDuracion") 
+                    select#filtroDuracion(class="filter_item__select" name="duracion") 
                         option(value="" disabled selected) Todas las opciones
                         each item in duracion
-                            option(value=item.id)= item.descripcion
+                         option(value=item.id selected=(item.id == filtroDuracion))= item.descripcion
+                            //option(value=item.id)= item.descripcion
 
-                button(id="btnBuscar" class="btn_primary" type="button") Buscar
+                button(id="btnBuscar" class="btn_primary" type="submit") Buscar
 
     section
         div(class="destinos_tour container")
@@ -62,7 +65,8 @@ block contenido
                         article(class="destinos_card__item")
                             div(class="destinos_card__image")
                                 p(class="destinos_card__image__ubicacion")= destino.region
-                                img(src=`uploads/${destino.imagen}` alt=`${destino.nombre}`)
+                                img(src=`/uploads/${destino.imagen_final}`, alt=destino.nombre)
+
 
                             div(class="card_item__info")
                                 div(class="card_item__info__servicio")
@@ -75,7 +79,8 @@ block contenido
                                     | #{destino.descripcion_corta}
 
                             div(class="card_item_precio")
-                                h3 S/. #{destino.precio}.00
+                                h3= destino.precio_desde ? `S/. ${destino.precio_desde.toFixed(2)}` : 'Consultar'
+                                //h3 S/. #{destino.precio}.00
                                 a(href=`/destinos/${destino.slug}` class="btn_primary btn_item__precio" id="btnDetalles") Detalles
 
 

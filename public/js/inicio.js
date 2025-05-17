@@ -10312,6 +10312,29 @@ function getRotateFix(swiper) {
   };
 }
 
+document.addEventListener('DOMContentLoaded', () => {
+  const btnBuscar = document.getElementById('btnBuscar');
+
+  if (btnBuscar) {
+    btnBuscar.addEventListener('click', () => {
+      const lugar = document.getElementById('filtroLugar').value;
+      const actividad = document.getElementById('filtroActividad').value;
+      const duracion = document.getElementById('filtroDuracion').value;
+
+      // Construimos la URL con query strings
+      const queryParams = new URLSearchParams();
+
+      if (lugar) queryParams.append('lugar', lugar);
+      if (actividad) queryParams.append('actividad', actividad);
+      if (duracion) queryParams.append('duracion', duracion);
+
+      // Redirigir a la página de resultados
+      window.location.href = `/destinos?${queryParams.toString()}`;
+    });
+  }
+});
+
+
 
 
 
