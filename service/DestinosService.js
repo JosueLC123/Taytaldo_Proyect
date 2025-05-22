@@ -15,6 +15,8 @@ export class DestinosService {
       DuracionModel.getAll()
     ])
     console.log('DESTINO EJEMPLO:', destinos[0])
+    console.log(destinos.map(d => ({ nombre: d.nombre, slug: d.slug })));
+
 
     //const datosTransformados = formatDestino(destinos[0])
     const datosTransformados = formatDestino(destinos) // <-- Aquí corregido
