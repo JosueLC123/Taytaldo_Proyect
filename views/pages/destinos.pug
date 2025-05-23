@@ -79,8 +79,10 @@ block contenido
                                     | #{destino.descripcion_corta}
 
                             div(class="card_item_precio")
-                                h3= destino.precio_desde ? `S/. ${destino.precio_desde.toFixed(2)}` : 'Consultar'
-                                //h3 S/. #{destino.precio}.00
+                                if destino.precio_desde != null
+                                 h3 S/. #{destino.precio_desde.toFixed(2)}
+                                else
+                                 h3 Consultar
                                 a(href=`/destinos/${destino.slug}` class="btn_primary btn_item__precio" id="btnDetalles") Detalles
 
 

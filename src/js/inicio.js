@@ -7,12 +7,15 @@ hamburguer.onclick = function () {
   navBar.classList.toggle('active')
   hamburguer.classList.toggle('open')
 }
+console.log("Cantidad de slides en destinos:", document.querySelectorAll('.slide_container .swiper-slide').length);
 
+window.addEventListener('load', () => {
 const swiper_destinos = new Swiper('.slide_container', {
   slidesPerView: 4,
   spaceBetween: 20,
   slidesPerGroup: 1,
-  loop: true,
+  loop: destinoSlides.length >= 5, // solo activa loop si hay suficientes slides
+  //loop: true,
   centerSlide: 'true',
   grabCursor: 'true',
   fade: 'true',
@@ -45,7 +48,8 @@ const swiper_proximo = new Swiper('.proximo_slider__container', {
   slidesPerView: 2,
   spaceBetween: 20,
   slidesPerGroup: 1,
-  loop: true,
+  loop: destinoSlides.length >= 5, // solo activa loop si hay suficientes slides
+  //loop: true,
   centerSlide: 'true',
   grabCursor: 'true',
   fade: 'true',
@@ -78,7 +82,8 @@ const swiper_planes = new Swiper('.planes_slider__container', {
   slidesPerView: 2,
   spaceBetween: 20,
   slidesPerGroup: 1,
-  loop: true,
+  loop: destinoSlides.length >= 5, // solo activa loop si hay suficientes slides
+  //loop: true,
   centerSlide: 'true',
   grabCursor: 'true',
   fade: 'true',
@@ -134,3 +139,4 @@ const swiper_testimonial = new Swiper('.testimonial_slider__container', {
     }
   }
 })
+});

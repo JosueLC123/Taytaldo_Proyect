@@ -18,7 +18,6 @@ app.use(express.static('public'))
 //app.use('/uploads', express.static('uploads'))
 
 
-
 app.use('/', appRouter)
 
 const PORT = process.env.PORT ?? 3000
