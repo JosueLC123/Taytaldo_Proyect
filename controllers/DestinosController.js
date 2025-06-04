@@ -17,7 +17,7 @@ export class DestinosController {
       const offset = (paginaNum - 1) * limit
       const data = await DestinosService.getAll({ input: { limit, offset } })
       console.log(
-    data.destinos.map(d => ({
+      data.destinos.map(d => ({
       nombre: d.nombre,
       imagen_final: d.imagen_final,
       imagenes: d.imagenes
@@ -44,7 +44,7 @@ export class DestinosController {
 
   static async getBySlug(req, res) {
     const { slug } = req.params
-    //console.log('ID del destino:', id);  // Verifica que el ID se esté pasando correctamente
+    
 
     try {
       const id = await DestinosService.getIdBySlug({ slug })

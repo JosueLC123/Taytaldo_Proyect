@@ -70,7 +70,7 @@ block contenido
             div(class="slider swiper")
                 div(class="slide_container")
                     div(class="card_wrapper swiper-wrapper")
-                        each destino in destinos 
+                        each destino in destinos
                             a(class="card swiper-slide" href=`/destinos/${destino.slug}`)
                                 div(class="image_box")
                                     img(src=`/uploads/${destino.imagen}` alt=`${destino.nombre}`)
@@ -90,10 +90,12 @@ block contenido
             div(class="proximo_slider swiper")
                 div(class="proximo_slider__container")
                     div(class="proximo_slider__wrapper swiper-wrapper") 
-                        each destino in destinos 
+
+                        each destino in destinos
                             button(class="proximo_slide swiper-slide")
                                 div(class="slide_image")
                                     img(src=`/uploads/${destino.imagen}` alt=`${destino.nombre}`)
+                                    //img(src=`/uploads/${destino.imagen}` alt=`${destino.nombre}`)
                                     h3(class="slide_text")= destino.nombre
 
                 div(class="swiper-button-next swiper-button-next-proximo swiper-navBtn")
@@ -156,6 +158,19 @@ block contenido
                 div(class="swiper-button-next swiper-button-next-testimonial swiper-navBtn")
                 div(class="swiper-button-prev swiper-button-prev-testimonial swiper-navBtn")
                 div(class="swiper-pagination swiper-pagination-testimonial")
+
+                div(id="satisfaccionModal" class="floating-feedback")
+                    span(class="close_button" ) ×
+                    h4 ¿Qué tan probable es que recomiende este sitio web?
+                    form(id="formSatisfaccion")
+                        div(class="satisfaccion_escala")
+                            each val in [0,1,2,3,4,5,6,7,8,9,10]
+                                label
+                                    input(type="radio", name="satisfaccion", value=val, required)
+                                    span= val
+                        button(type="submit" class="btn_primary") Enviar
+                        p(id="mensajeGracias" style="display: none; color: green; font-weight: bold; margin-top: 10px;") Gracias por participar en la encuesta.
+
 
 block scripts 
     script(src='/js/inicio.js')

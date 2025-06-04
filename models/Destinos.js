@@ -5,12 +5,21 @@ const connectionString = process.env.DATABASE_URL ?? DATABASE_CONFIG
 
 const connection = await mysql.createConnection(connectionString)
 
+
 export class DestinosModel {
-  static async getAll () {
+  /*static async getAll () {
     const [destinos] = await connection.query(
       'select * from vw_destino_imagen;'
     )
     return destinos
+  }*/
+  // ✅ USAR PROCEDIMIENTO PARA TRAER DESTINOS COMPLETOS
+  static async getAll () {
+    const [resultSets] = await connection.query(
+      'CALL GetDestinoServiciosPrecio(?, ?);',
+      [100, 0] // Puedes cambiar el límite si deseas menos resultados
+    )
+    return resultSets[0]
   }
 
  
@@ -22,7 +31,6 @@ export class DestinosModel {
       'CALL GetDestinoServiciosPrecio(?, ?);',
       [limit, offset]
     )
-    console.log('RESULTADO DEL PROCEDIMIENTO:', resultSets)
     return resultSets[0]
   }
   
@@ -66,7 +74,5 @@ export class DestinosModel {
     const [destinos] = await connection.query(query, params)
     return destinos
   }
-  
 
-  
 }

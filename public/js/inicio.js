@@ -10627,3 +10627,53 @@ const swiper_testimonial = new swiper_bundle__WEBPACK_IMPORTED_MODULE_0__["defau
 /******/ })()
 ;
 //# sourceMappingURL=inicio.js.map
+
+//Lo último agregado
+// Mostrar el modal después de 3 segundos si no ha sido mostrado
+window.addEventListener("load", () => {
+  setTimeout(() => {
+    const modal = document.getElementById("satisfaccionModal");
+    if (modal && !sessionStorage.getItem("satisfaccionModalMostrado")) {
+      modal.classList.add("show");
+      sessionStorage.setItem("satisfaccionModalMostrado", "true");
+    }
+  }, 3000);
+});
+
+// Función para cerrar el modal
+function cerrarModal() {
+  const modal = document.getElementById("satisfaccionModal");
+  if (modal) {
+    modal.classList.remove("show");
+    modal.style.display = "none";
+
+  }
+}
+
+// Configuración del formulario
+document.addEventListener("DOMContentLoaded", () => {
+  const form = document.getElementById("formSatisfaccion");
+  const mensaje = document.getElementById("mensajeGracias");
+  const closeButton = document.querySelector(".close_button");
+
+  if (form) {
+    form.addEventListener("submit", function (e) {
+      e.preventDefault();
+
+      // Ocultar escala y botón
+      form.querySelector("button[type=submit]").style.display = "none";
+      form.querySelector(".satisfaccion_escala").style.display = "none";
+      mensaje.style.display = "block";
+
+      // Cerrar modal después de 3 segundos
+      setTimeout(() => {
+        cerrarModal();
+      }, 3000);
+    });
+  }
+
+  // Escuchar clic en botón cerrar
+  if (closeButton) {
+    closeButton.addEventListener("click", cerrarModal);
+  }
+});

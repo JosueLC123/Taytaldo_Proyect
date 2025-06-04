@@ -54,7 +54,8 @@ class ReservaHandler {
     document.querySelectorAll('.precio').forEach((elemento) => {
       const tipo = elemento.dataset.tipo.toLowerCase()
       const valor = parseFloat(elemento.dataset.valor)
-      precios[tipo] = valor
+      precios[tipo] = isNaN(valor) ? 0 : valor
+      //precios[tipo] = valor
     })
     return precios
   }

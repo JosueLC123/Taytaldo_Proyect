@@ -26,6 +26,7 @@ function formatPrecios(preciosString) {
     return {
       servicio,
       valor: formatearPrecio(Number(valor)) // Aquí formateas el valor como "S/. 30.00"
+      //valor: Number(valor) //devuelve 30.00 como número
     };
   });
 }
@@ -63,6 +64,9 @@ export function formatItinerario(results) {
   if (!results || results.length === 0) {
     throw new Error("No se recibieron resultados para formatear el itinerario")
   }
+
+  console.log('🛠️ Datos crudos del itinerario:', results[0]); // <-- Agrega esto
+
 
   const data = {
     id_destino: results[0].id_destino,
