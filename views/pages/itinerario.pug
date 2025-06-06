@@ -103,7 +103,8 @@ block contenido
                         input(type="hidden", name="slug" value=`${itinerario.slug}`)
                         div(class="reserva_precios")
                             each item in itinerario.precios
-                                p= item.tipo
+                                p
+                                    | #{item.tipo}
                                     span(class="precio" data-tipo=item.tipo data-valor=item.valor) S/. #{item.valor} 
                                     
                         div(class="formulario_reserva__content")

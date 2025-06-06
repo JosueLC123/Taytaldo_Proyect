@@ -117,6 +117,7 @@ class ReservaHandler {
 
   async enviarReserva (e) {
     e.preventDefault()
+    console.log("Formulario de consulta enviado")
     const formData = new FormData(e.target)
     const id = formData.get('id')
 

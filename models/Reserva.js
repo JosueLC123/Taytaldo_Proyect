@@ -5,6 +5,7 @@ const connectionString = process.env.DATABASE_URL ?? DATABASE_CONFIG
 
 const connection = await mysql.createConnection(connectionString)
 
+
 export class ReservaModel {
   static async create ({ input }) {
     const { id, fechaReserva, nombreCompleto, correo, dni, telefono, adultos, infantes, precioTotal } = input

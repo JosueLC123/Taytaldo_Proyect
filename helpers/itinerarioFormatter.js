@@ -20,15 +20,23 @@ function formatPrecios(preciosString) {
   if (typeof preciosString !== 'string' || preciosString.length === 0) {
     return [];
   }
-
   return preciosString.split(',').map(precio => {
+  const [tipo, valor] = precio.split(':');
+  return {
+    tipo: tipo?.trim() ?? 'General',
+    valor: parseFloat(valor) || 0
+  };
+});
+
+
+  /*return preciosString.split(',').map(precio => {
     const [servicio, valor] = precio.split(':');
     return {
       servicio,
       valor: formatearPrecio(Number(valor)) // Aquí formateas el valor como "S/. 30.00"
-      //valor: Number(valor) //devuelve 30.00 como número
+
     };
-  });
+  });*/
 }
 
 
