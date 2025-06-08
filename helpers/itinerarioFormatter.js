@@ -3,6 +3,19 @@ function safeSplit(value) {
     ? value.split(',').map(item => item.trim())
     : []
 }
+  // ✅ NUEVA FUNCIÓN
+function parseListaTexto(cadena, mensajePorDefecto = 'Información no disponible') {
+  if (typeof cadena !== 'string' || cadena.trim() === '') {
+    return [mensajePorDefecto]
+  }
+
+  const elementos = cadena
+    .split(',')
+    .map(item => item.trim())
+    .filter(item => item.length > 0)
+
+  return elementos.length > 0 ? elementos : [mensajePorDefecto]
+}
 
 function formatearPrecio(precio) {
   if (precio === null || precio === undefined) {
@@ -28,32 +41,7 @@ function formatPrecios(preciosString) {
   };
 });
 
-
-  /*return preciosString.split(',').map(precio => {
-    const [servicio, valor] = precio.split(':');
-    return {
-      servicio,
-      valor: formatearPrecio(Number(valor)) // Aquí formateas el valor como "S/. 30.00"
-
-    };
-  });*/
 }
-
-
-/*function formatPrecios(preciosString) {
-  if (typeof preciosString !== 'string' || preciosString.length === 0) {
-    return []
-  }
-
-  return preciosString.split(',').map(item => {
-    const [tipoCliente, valor] = item.split(':').map(part => part.trim())
-    return {
-      tipo: tipoCliente ?? 'General',
-      valor: parseFloat(valor) || 0
-    }
-  })
-}*/
-
 function formatDia(diaString) {
   if (typeof diaString !== 'string' || diaString.trim() === '') {
     return [1, 'Lugar no definido']
@@ -84,6 +72,9 @@ export function formatItinerario(results) {
     imagenes: safeSplit(results[0].imagenes),
     precio_desde: results[0].precio_desde,
     precios: formatPrecios(results[0].precios),
+    //incluye: parseListaTexto(results[0].incluye, 'Incluye no especificado'),
+    //no_incluye: parseListaTexto(results[0].no_incluye, 'No incluye no especificado'),
+    //informacion_adicional: parseListaTexto(results[0].informacion_adicional),
     incluye: safeSplit(results[0].incluye),
     no_incluye: safeSplit(results[0].no_incluye),
     informacion_adicional: safeSplit(results[0].informacion_adicional),
@@ -112,4 +103,5 @@ export function formatItinerario(results) {
   })
 
   return data
+
 }

@@ -98,7 +98,7 @@ block contenido
                     div(class="item" data-id="#consulta-form") Consulta
 
                 div(class="formulario_reserva" id="reserva-form")
-                    form(id="frmReserva")  
+                    form(id="frmReserva")
                         input(type="hidden", name="id" value=`${itinerario.id_destino}`)
                         input(type="hidden", name="slug" value=`${itinerario.slug}`)
                         div(class="reserva_precios")
@@ -175,7 +175,7 @@ block contenido
                                     input(type="hidden" id="precio_total" name="precioTotal")
 
                         button(type="submit" class="btn_primary btn_reserva" id="btnReserva") Reservar
-
+                
                 div(class="formulario_consulta" id="consulta-form" style="display: none;")
                     form(id="frmConsulta") 
                         input(type="hidden", name="id" value=`${itinerario.id_destino}`)
@@ -200,7 +200,6 @@ block contenido
                                 label(for="email") Mensaje:
                                 textarea(class="form_textarea" name="mensaje" id="mensaje_consulta" placeholder="Escribe un mensaje")
                         button(type="submit" class="btn_primary btn_consulta" id="btnConsulta") Consultar
-
 
 block scripts 
     script(src='/js/inicio.js')
