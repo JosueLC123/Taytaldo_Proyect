@@ -15,7 +15,7 @@ app.set('views', './views')
 
 // Carpeta Publica
 app.use(express.static('public'))
-//app.use('/uploads', express.static('uploads'))
+
 
 
 app.use('/', appRouter)

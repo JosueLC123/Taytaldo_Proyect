@@ -9,7 +9,7 @@ block contenido
             p Encuentra la mejor aventura para tí
 
         search 
-            form(action="/", method="get" class="filter") 
+            form(action="/destinos", method="get" class="filter") 
                 div(class="filter_item")
                     p 
                         i(class="icon-lugar")
@@ -18,7 +18,8 @@ block contenido
                     select#filtroLugar(class="filter_item__select" name="lugar") 
                         option(value="" disabled selected) ¿A donde quieres ir?
                         each lugar in lugares
-                            option(value=lugar.id selected=(lugar.id == filtroLugar))= lugar.descripcion
+                            option(value=lugar.id selected=(String(lugar.id) === String(filtroLugar) ? true : undefined))= lugar.descripcion
+                            //option(value=lugar.id selected=(lugar.id == filtroLugar))= lugar.descripcion
                             //option(value=lugar.id)= lugar.descripcion
 
                 div(class="filter_item")
@@ -29,7 +30,8 @@ block contenido
                     select#filtroActividad(class="filter_item__select" name="actividad") 
                         option(value="" disabled selected) Todas las actividades
                         each servicio in servicios
-                            option(value=servicio.id selected=(servicio.id == filtroActividad))= servicio.descripcion
+                            option(value=servicio.id selected=(String(servicio.id) === String(filtroActividad) ? true : undefined))= servicio.descripcion
+                            //option(value=servicio.id selected=(servicio.id == filtroActividad))= servicio.descripcion
                             //option(value=servicio.id)= servicio.descripcion
 
                 div(class="filter_item")
@@ -40,7 +42,8 @@ block contenido
                     select#filtroDuracion(class="filter_item__select" name="duracion") 
                         option(value="" disabled selected) Todas las opciones
                         each item in duracion
-                         option(value=item.id selected=(item.id == filtroDuracion))= item.descripcion
+                            option(value=item.id selected=(String(item.id) === String(filtroDuracion) ? true : undefined))= item.descripcion
+                            //option(value=item.id selected=(item.id == filtroDuracion))= item.descripcion
                             //option(value=item.id)= item.descripcion
 
                 button(id="btnBuscar" class="btn_primary" type="submit") Buscar
@@ -65,12 +68,13 @@ block contenido
                         article(class="destinos_card__item")
                             div(class="destinos_card__image")
                                 p(class="destinos_card__image__ubicacion")= destino.region
-                                img(src=`/uploads/${destino.imagen_final}`, alt=destino.nombre)
+                                img(src=`/uploads/${destino.imagen}`, alt=destino.nombre)
 
 
                             div(class="card_item__info")
                                 div(class="card_item__info__servicio")
                                     each servicio in destino.servicios
+
                                         p(class="label_info card_item__info_heading")
                                             i(class="icon-clock")
                                             |  #{servicio}
@@ -87,8 +91,10 @@ block contenido
 
 
                 nav(class="pagination" role="navigation" aria-label="pagination")
-                    a(href=`/destinos?pagina=${pagina - 1}` class=`${pagina === 1 ? 'is-disabled' : 'is-enable'} pagination-prev`) Anterior
-                    a(href=`/destinos?pagina=${pagina + 1}` class=`${pagina === paginacion ? 'is-disabled' : 'is-enable'} pagination-next`) Siguiente
+                    a(href=`/destinos?pagina=${pagina - 1}&lugar=${filtroLugar || ''}&actividad=${filtroActividad || ''}&duracion=${filtroDuracion || ''}` class=`${pagina === 1 ? 'is-disabled' : 'is-enable'} pagination-prev`) Anterior
+                    a(href=`/destinos?pagina=${pagina + 1}&lugar=${filtroLugar || ''}&actividad=${filtroActividad || ''}&duracion=${filtroDuracion || ''}` class=`${pagina === paginacion ? 'is-disabled' : 'is-enable'} pagination-next`) Siguiente
+                    //a(href=`/destinos?pagina=${pagina - 1}` class=`${pagina === 1 ? 'is-disabled' : 'is-enable'} pagination-prev`) Anterior
+                    //a(href=`/destinos?pagina=${pagina + 1}` class=`${pagina === paginacion ? 'is-disabled' : 'is-enable'} pagination-next`) Siguiente
             else 
                 div(class="destinos_heading")
                     p(class="destinos_heading__text") No hay Destinos

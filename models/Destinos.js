@@ -52,27 +52,41 @@ export class DestinosModel {
     const [resultSets] = await connection.query('CALL GetItinerarioById(?);', [id])
     return resultSets[0] // ← Esto es el arreglo de objetos del itinerario
   }
-  static async getFiltrados({ lugar, actividad, duracion }) {
+
+  /*static async getFiltrados({ lugar, actividad, duracion }) {
     let query = 'SELECT * FROM vw_destino_imagen WHERE 1=1'
     const params = []
 
     if (lugar) {
-      query += ' AND lugar = ?'
+      query += ' AND id_lugar = ?'
       params.push(lugar)
     }
 
     if (actividad) {
-      query += ' AND actividad = ?'
+      query += ' AND id_servicio = ?'
       params.push(actividad)
     }
 
     if (duracion) {
-      query += ' AND duracion = ?'
+      query += ' AND id_duracion = ?'
       params.push(duracion)
     }
 
     const [destinos] = await connection.query(query, params)
     return destinos
-  }
+  }*/
+
+  static async getFiltrados({ lugar, actividad, duracion }) {
+  const [resultSets] = await connection.query(
+    'CALL GetDestinoServiciosPrecioFiltrado(?, ?, ?);',
+    [
+      lugar || null,
+      actividad || null,
+      duracion || null
+    ]
+  );
+  return resultSets[0]; // resultado del procedimiento
+}
+
 
 }

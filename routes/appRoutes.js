@@ -5,7 +5,7 @@ import { DestinosController } from '../controllers/DestinosController.js'
 import { ContactoController } from '../controllers/ContactoController.js'
 import { ReservaController } from '../controllers/ReservaController.js'
 import { ConsultaController } from '../controllers/ConsultaController.js'
-
+console.log('DestinosController:', DestinosController)
 export const appRouter = Router()
 
 // INICIO
@@ -18,6 +18,7 @@ appRouter.get('/nosotros', NosotrosController.show)
 appRouter.get('/destinos', DestinosController.getAll)
 appRouter.get('/destinos/:slug', DestinosController.getBySlug)
 
+
 // RESERVA
 appRouter.post('/reserva/:id', ReservaController.create)
 
@@ -27,3 +28,4 @@ appRouter.post('/consulta/:id', ConsultaController.create)
 // CONTACTO
 appRouter.get('/contacto', ContactoController.show)
 appRouter.post('/contacto', ContactoController.create)
+

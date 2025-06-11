@@ -37,4 +37,23 @@ export class DestinosService {
     const datosTransformados = formatItinerario(itinerario)
     return { itinerario: datosTransformados }
   }
+  //he agregado esto último
+  static async getFiltrados({ lugar, actividad, duracion }) {
+  const destinos = await DestinosModel.getFiltrados({ lugar, actividad, duracion });
+  const lugares = await LugaresModel.getAll();
+  const servicios = await ServicioModel.getAll();
+  const duracionData = await DuracionModel.getAll();
+
+  const datosTransformados = formatDestino(destinos);
+
+  return {
+    destinos: datosTransformados,
+    lugares,
+    servicios,
+    duracion: duracionData,
+    total: destinos.length
+  };
+}
+
+
 }

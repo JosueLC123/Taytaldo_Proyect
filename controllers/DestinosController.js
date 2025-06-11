@@ -2,65 +2,68 @@ import { DestinosService } from '../service/DestinosService.js'
 
 export class DestinosController {
   static async getAll(req, res) {
-    let { pagina } = req.query
-    const expresion = /^[1-9][0-9]*$/  // Permite 1, 10, 100, etc.
+    let { pagina, lugar, actividad, duracion } = req.query;
+    const expresion = /^[1-9][0-9]*$/;
 
-    // Convertimos pagina a número y lo forzamos a ser mínimo 1
-    const paginaNum = Math.max(1, parseInt(pagina, 10) || 1)
-
+    const paginaNum = Math.max(1, parseInt(pagina, 10) || 1);
     if (!expresion.test(pagina)) {
-      return res.redirect('/destinos?pagina=1')
+      return res.redirect('/destinos?pagina=1');
     }
 
     try {
-      const limit = 7
-      const offset = (paginaNum - 1) * limit
-      const data = await DestinosService.getAll({ input: { limit, offset } })
-      console.log(
-      data.destinos.map(d => ({
-      nombre: d.nombre,
-      imagen_final: d.imagen_final,
-      imagenes: d.imagenes
-    }))
-  );
+      const limit = 7;
+      const offset = (paginaNum - 1) * limit;
 
+      let data;
+
+      const hayFiltros = lugar || actividad || duracion;
+
+      if (hayFiltros) {
+        data = await DestinosService.getFiltrados({
+          lugar,
+          actividad,
+          duracion
+        });
+      } else {
+        data = await DestinosService.getAll({ input: { limit, offset } });
+      }
 
       return res.render('pages/destinos', {
-        lugares: data.lugares,
-        servicios: data.servicios,
-        duracion: data.duracion,
-        destinos: data.destinos,
+        lugares: data.lugares || await DestinosService.getLugares(),
+        servicios: data.servicios || await DestinosService.getServicios(),
+        duracion: data.duracion || await DestinosService.getDuraciones(),
+        destinos: data.destinos || data,
         pagina: paginaNum,
-        paginacion: Math.ceil(data.total / limit),
-        total: data.total,
+        paginacion: hayFiltros ? 1 : Math.ceil(data.total / limit),
+        total: hayFiltros ? data.length : data.total,
         limit,
-        offset
-      })
+        offset,
+        filtroLugar: lugar,
+        filtroActividad: actividad,
+        filtroDuracion: duracion
+      });
     } catch (error) {
-      console.error(error)
-      return res.status(500).send('Error interno del servidor')
+      console.error(error);
+      return res.status(500).send('Error interno del servidor');
     }
   }
 
   static async getBySlug(req, res) {
-    const { slug } = req.params
-    
+    const { slug } = req.params;
 
     try {
-      const id = await DestinosService.getIdBySlug({ slug })
+      const id = await DestinosService.getIdBySlug({ slug });
 
       if (!id) {
-        return res.status(404).send('Destino no encontrado')
+        return res.status(404).send('Destino no encontrado');
       }
 
-      const { itinerario } = await DestinosService.getById(id)
+      const { itinerario } = await DestinosService.getById(id);
 
-      return res.render('pages/itinerario', { itinerario })
+      return res.render('pages/itinerario', { itinerario });
     } catch (error) {
-      console.error(error)
-      return res.status(500).send('Error interno del servidor')
+      console.error(error);
+      return res.status(500).send('Error interno del servidor');
     }
-    
   }
-  
 }
