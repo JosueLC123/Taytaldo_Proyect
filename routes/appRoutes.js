@@ -5,7 +5,7 @@ import { DestinosController } from '../controllers/DestinosController.js'
 import { ContactoController } from '../controllers/ContactoController.js'
 import { ReservaController } from '../controllers/ReservaController.js'
 import { ConsultaController } from '../controllers/ConsultaController.js'
-console.log('DestinosController:', DestinosController)
+
 export const appRouter = Router()
 
 // INICIO
