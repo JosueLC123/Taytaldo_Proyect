@@ -8,13 +8,13 @@ block contenido
             p Embárcate en una travesía única y vive la naturaleza como nunca antes. Haz de cada recorrido una nueva historia.
 
         search 
-            form(action="", method="post" class="filter") 
+            form(action="/destinos", method="get" class="filter") 
                 div(class="filter_item")
                     p 
                         i(class="icon-lugar")
                         | Lugares
 
-                    select#filtroLugar(class="filter_item__select" name="filtroLugar") 
+                    select#filtroLugar(class="filter_item__select" name="Lugar") 
                         option(value="" disabled selected) ¿A donde quieres ir?
                         each lugar in lugares 
                             option(value=lugar.id)= lugar.descripcion
@@ -24,7 +24,7 @@ block contenido
                         i(class="icon-actividad")
                         | Actividad
 
-                    select#filtroActividad(class="filter_item__select" name="filtroActividad") 
+                    select#filtroActividad(class="filter_item__select" name="Actividad") 
                         option(value="" disabled selected) Todas las actividades
                         each servicio in servicios 
                             option(value=servicio.id)= servicio.descripcion
@@ -34,12 +34,12 @@ block contenido
                         i(class="icon-duracion")
                         | Duración
 
-                    select#filtroDuracion(class="filter_item__select" name="filtroDuracion") 
+                    select#filtroDuracion(class="filter_item__select" name="Duracion") 
                         option(value="" disabled selected) Todas las opciones
                         each item in duracion 
                             option(value=item.id)= item.descripcion
 
-                button(id="btnBuscar" class="btn_primary" type="button") Buscar
+                button(id="btnBuscar" class="btn_primary" type="submit") Buscar
 
     section
         div(class="cards container")

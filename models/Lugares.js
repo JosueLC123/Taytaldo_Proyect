@@ -8,7 +8,7 @@ const connection = await mysql.createConnection(connectionString)
 export class LugaresModel {
   static async getAll () {
     const [lugares] = await connection.query(
-      'select * from lugar;'
+      'select id_lugar AS id, descripcion FROM lugar;'
     )
     return lugares
   }

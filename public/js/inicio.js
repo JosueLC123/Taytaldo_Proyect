@@ -10677,3 +10677,20 @@ document.addEventListener("DOMContentLoaded", () => {
     closeButton.addEventListener("click", cerrarModal);
   }
 });
+
+document.addEventListener("DOMContentLoaded", function () {
+  const btn = document.getElementById("btnBuscar");
+
+  if (btn) {
+    btn.addEventListener("click", function (e) {
+      e.preventDefault(); // evita envío automático
+
+      const form = document.querySelector(".filter");
+      if (form) {
+        console.log("Enviando formulario...");
+        form.submit(); // ahora lo haces manualmente
+      }
+    });
+  }
+});
+
