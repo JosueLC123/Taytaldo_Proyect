@@ -70,7 +70,7 @@ block contenido
             div(class="slider swiper")
                 div(class="slide_container")
                     div(class="card_wrapper swiper-wrapper")
-                        each destino in destinos
+                        each destino in favoritos
                             a(class="card swiper-slide" href=`/destinos/${destino.slug}`)
                                 div(class="image_box")
                                     img(src=`/uploads/${destino.imagen}` alt=`${destino.nombre}`)
@@ -91,11 +91,10 @@ block contenido
                 div(class="proximo_slider__container")
                     div(class="proximo_slider__wrapper swiper-wrapper") 
 
-                        each destino in destinos
+                        each destino in proximamente
                             button(class="proximo_slide swiper-slide")
                                 div(class="slide_image")
                                     img(src=`/uploads/${destino.imagen}` alt=`${destino.nombre}`)
-                                    //img(src=`/uploads/${destino.imagen}` alt=`${destino.nombre}`)
                                     h3(class="slide_text")= destino.nombre
 
                 div(class="swiper-button-next swiper-button-next-proximo swiper-navBtn")

@@ -65,29 +65,28 @@ block contenido
             
                 div(class="destinos_cards")
                     each destino in destinos
-                        article(class="destinos_card__item")
-                            div(class="destinos_card__image")
-                                p(class="destinos_card__image__ubicacion")= destino.region
-                                img(src=`/uploads/${destino.imagen}`, alt=destino.nombre)
+                        if destino.estado === 'activo'
+                            article(class="destinos_card__item")
+                                div(class="destinos_card__image")
+                                    p(class="destinos_card__image__ubicacion")= destino.region
+                                    img(src=`/uploads/${destino.imagen}`, alt=destino.nombre)
 
+                                div(class="card_item__info")
+                                    div(class="card_item__info__servicio")
+                                        each servicio in destino.servicios
+                                            p(class="label_info card_item__info_heading")
+                                                i(class="icon-clock")
+                                                |  #{servicio}
+                                    h3= destino.nombre
+                                    p(class="card_item__info_text")
+                                        | #{destino.descripcion_corta}
 
-                            div(class="card_item__info")
-                                div(class="card_item__info__servicio")
-                                    each servicio in destino.servicios
-
-                                        p(class="label_info card_item__info_heading")
-                                            i(class="icon-clock")
-                                            |  #{servicio}
-                                h3= destino.nombre
-                                p(class="card_item__info_text")
-                                    | #{destino.descripcion_corta}
-
-                            div(class="card_item_precio")
-                                if destino.precio_desde != null
-                                 h3 S/. #{destino.precio_desde.toFixed(2)}
-                                else
-                                 h3 Consultar
-                                a(href=`/destinos/${destino.slug}` class="btn_primary btn_item__precio" id="btnDetalles") Detalles
+                                div(class="card_item_precio")
+                                    if destino.precio_desde != null
+                                        h3 S/. #{destino.precio_desde.toFixed(2)}
+                                    else
+                                        h3 Consultar
+                                    a(href=`/destinos/${destino.slug}` class="btn_primary btn_item__precio" id="btnDetalles") Detalles
 
 
                 nav(class="pagination" role="navigation" aria-label="pagination")
