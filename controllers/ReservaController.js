@@ -48,7 +48,7 @@ export class ReservaController {
       `
 
       await enviarCorreo({
-        to: 'darkraider705@gmail.com', // o input.correo si deseas enviárselo al cliente
+        to: 'taytaldo@gmail.com', // o input.correo si deseas enviárselo al cliente
         subject: 'Nueva reserva desde el sitio web',
         html
       })

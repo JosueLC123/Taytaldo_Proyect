@@ -28,7 +28,8 @@ block contenido
                     section(class="itinerario_datos")
                         article(class="itinerario_datos__descripcion")
                             h3 Descripción 
-                            p(class="datos_descripcion__text")= itinerario.descripcion_larga 
+                            p(class="datos_descripcion__text justificado")= itinerario.descripcion_larga
+                            //p(class="datos_descripcion__text")= itinerario.descripcion_larga 
                         div(class="str_hr")
 
                         if itinerario.incluye && itinerario.incluye[0] !== ''

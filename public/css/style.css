@@ -2848,3 +2848,8 @@ form .formulario_consulta__content .form_textarea{
 body {
   padding-bottom: 150px; /* o según la altura del modal */
 }
+
+.justificado {
+  text-align: justify;
+}
+

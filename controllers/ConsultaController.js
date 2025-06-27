@@ -31,7 +31,7 @@ export class ConsultaController {
         <p><strong>Mensaje:</strong> ${input.mensaje}</p>
       `
       await enviarCorreo({
-        to: 'darkraider705@gmail.com', // o puedes usar input.correo para responderle al usuario
+        to: 'taytaldo@gmail.com', // o puedes usar input.correo para responderle al usuario
         subject: 'Nueva consulta desde el sitio web',
         html
       })
